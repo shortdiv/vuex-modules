@@ -67,13 +67,13 @@ export default {
     }),
     ...mapGetters({
       lowStockItems: "inventory/lowStockItems",
+      isSupplyLow: "inventory/isSupplyLow",
+      isMachineWorking: "inventory/isMachineWorking",
       serviceDateTime: "machine/serviceDateTime"
     }),
     machineMessages() {
-      const supplyMsg = this.$store.getters["inventory/isSupplyLow"]
-        ? "Supply is low"
-        : "";
-      const conditionMsg = this.$store.getters.isMachineWorking
+      const supplyMsg = this.isSupplyLow ? "Supply is low" : "";
+      const conditionMsg = this.isMachineWorking
         ? ""
         : "Machine is not working";
       return `${supplyMsg} ${conditionMsg}`;

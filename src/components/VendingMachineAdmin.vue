@@ -58,11 +58,14 @@
 export default {
   name: "VendingMachineAdmin",
   computed: {
+    lowStockItems() {
+      return this.$store.getters.lowStockItems;
+    },
     machineName() {
-      return this.$store.state.machineName;
+      return this.$store.state.machine.machineName;
     },
     inventory() {
-      return this.$store.state.inventory;
+      return this.$store.state.inventory.supply;
     },
     serviceDateTime() {
       return this.$store.getters.serviceDateTime;
@@ -72,7 +75,7 @@ export default {
       const conditionMsg = this.$store.getters.isMachineWorking
         ? ""
         : "Machine is not working";
-      return `${supplyMsg}, ${conditionMsg}`;
+      return `${supplyMsg} ${conditionMsg}`;
     }
   },
   methods: {

@@ -42,11 +42,14 @@
         </div>
         <div class="machine-state">
           <h3>Last Serviced</h3>
-          <p>{{ serviceDate }}</p>
-          <span>{{ serviceTime }}</span>
+          <div class="service-date">
+            <p>{{ serviceDateTime.date }}</p>
+            <span>{{ serviceDateTime.time }}</span>
+          </div>
         </div>
       </div>
       <button class="service-btn" @click="serviceMachine">Service</button>
+      <span class="machine-logs">{{ machineMessages }}</span>
     </section>
   </div>
 </template>
@@ -61,11 +64,15 @@ export default {
     inventory() {
       return this.$store.state.inventory;
     },
-    serviceDate() {
-      return this.$store.getters.serviceDate;
+    serviceDateTime() {
+      return this.$store.getters.serviceDateTime;
     },
-    serviceTime() {
-      return this.$store.getters.serviceTime;
+    machineMessages() {
+      const supplyMsg = this.$store.getters.isSupplyLow ? "Supply is low" : "";
+      const conditionMsg = this.$store.getters.isMachineWorking
+        ? ""
+        : "Machine is not working";
+      return `${supplyMsg}, ${conditionMsg}`;
     }
   },
   methods: {
@@ -107,7 +114,7 @@ li {
   position: relative;
   height: 200px;
   width: 100%;
-  padding: 0 30px;
+  padding: 30px;
   box-sizing: border-box;
   background: #008a56;
   color: white;
@@ -124,8 +131,13 @@ li {
     border: none;
     border-radius: 10px;
     align-self: flex-start;
-    margin-top: 30px;
   }
+}
+
+.service-date {
+  position: absolute;
+  right: -156px;
+  top: -20px;
 }
 
 .product-avatar {
@@ -176,9 +188,24 @@ li {
   z-index: 100;
 }
 
+.machine-logs {
+  position: absolute;
+  bottom: 13px;
+  left: 37px;
+  border-left-color: #f66;
+  border-left-width: 4px;
+  border-left-style: solid;
+  background-color: #f8f8f8;
+  color: black;
+  padding: 4px 4px 4px 7px;
+}
+
 .machine-information {
+  align-self: flex-start;
+
   h3,
   p {
+    text-align: left;
     margin: 0;
   }
 
@@ -189,6 +216,7 @@ li {
 
 .machine-state {
   margin-top: 16px;
+  position: relative;
 
   p {
     font-size: 1.5em;

@@ -12,6 +12,7 @@ export default new Vuex.Store({
   mutations: {},
   modules: {
     inventory: {
+      namespaced: true,
       state: {
         supply: [
           {
@@ -47,6 +48,7 @@ export default new Vuex.Store({
       }
     },
     machine: {
+      namespaced: true,
       state: {
         machineName: "Bender",
         lastServiced: new Date(),

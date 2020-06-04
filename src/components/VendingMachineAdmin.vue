@@ -55,21 +55,20 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from "vuex";
+
 export default {
   name: "VendingMachineAdmin",
   computed: {
-    lowStockItems() {
-      return this.$store.getters["inventory/lowStockItems"];
-    },
-    machineName() {
-      return this.$store.state.machine.machineName;
-    },
-    inventory() {
-      return this.$store.state.inventory.supply;
-    },
-    serviceDateTime() {
-      return this.$store.getters["machine/serviceDateTime"];
-    },
+    ...mapState({
+      machineName: state => state.machine.machineName,
+      inventory: state => state.inventory.supply,
+      serviceDateTime: state => state.machine.serviceDateTime
+    }),
+    ...mapGetters({
+      lowStockItems: "inventory/lowStockItems",
+      serviceDateTime: "machine/serviceDateTime"
+    }),
     machineMessages() {
       const supplyMsg = this.$store.getters["inventory/isSupplyLow"]
         ? "Supply is low"
@@ -81,9 +80,9 @@ export default {
     }
   },
   methods: {
-    serviceMachine() {
-      this.$store.dispatch("serviceMachine");
-    }
+    ...mapActions({
+      serviceMachine: "machine/serviceMachine"
+    })
   }
 };
 </script>

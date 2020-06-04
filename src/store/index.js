@@ -56,6 +56,7 @@ export default new Vuex.Store({
       },
       actions: {
         serviceMachine({ commit }) {
+          debugger;
           commit("updateServiceDate", new Date());
         }
       },

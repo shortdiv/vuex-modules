@@ -42,7 +42,7 @@ export default new Vuex.Store({
       },
       getters: {
         isSupplyLow(state) {
-          return state.inventory.filter(item => item.supply <= 5);
+          return state.supply.filter(item => item.supply <= 5);
         }
       }
     },
